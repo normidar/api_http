@@ -12,4 +12,10 @@ environment:
   sdk: ^3.4.4
 name: api_http
 repository: https://github.com/normidar/api_http
+topics:
+  - http
+  - client
+  - rest
+  - interface
+  - api
 version: 0.0.1
