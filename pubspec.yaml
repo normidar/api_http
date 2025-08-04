@@ -5,9 +5,9 @@ dependencies:
   meta: ^1.0.0
 description: "A comprehensive HTTP API client library for Dart with type-safe interface and mocking support"
 dev_dependencies:
-  auto_exporter: any
-  build_runner: any
-  test: any
+  auto_exporter: ^4.0.0
+  build_runner: ^2.6.0
+  test: ^1.24.0
 environment:
   sdk: ^3.0.0
 name: api_http
