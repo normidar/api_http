@@ -73,9 +73,7 @@ class MethodUtils {
     switch (requestBody) {
       case JsonRequestBody():
         final request = http.Request(method, uri);
-
         request.headers.addAll(headers);
-
         request.body = json.encode(requestBody.json);
         final response = await client.send(request);
         return ResponseAcc.fromStreamedResponse(response);
@@ -104,8 +102,11 @@ class MethodUtils {
         }
         final response = await client.send(request);
         return ResponseAcc.fromStreamedResponse(response);
-      default:
-        throw Exception('Unsupported request body type');
+      case null:
+        final request = http.Request(method, uri);
+        request.headers.addAll(headers);
+        final response = await client.send(request);
+        return ResponseAcc.fromStreamedResponse(response);
     }
   }
 }
