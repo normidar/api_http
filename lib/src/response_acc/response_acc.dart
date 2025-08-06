@@ -4,12 +4,6 @@ import 'package:api_http/api_http.dart';
 import 'package:http/http.dart' as http;
 
 class ResponseAcc {
-  ResponseAcc({
-    required this.statusCode,
-    required this.body,
-    required this.headers,
-  });
-
   final String statusCode;
 
   /// The body of the response.
@@ -19,6 +13,12 @@ class ResponseAcc {
   final ResponseBody? body;
 
   final Map<String, String> headers;
+
+  ResponseAcc({
+    required this.statusCode,
+    required this.body,
+    required this.headers,
+  });
 
   @override
   String toString() {
@@ -31,12 +31,12 @@ class ResponseAcc {
   ) async {
     final bytes = await response.stream.toBytes();
     final headers = response.headers;
-    final bodyInstance = switch (headers.contentType) {
+    final bodyInstance = switch (getContentType(headers)) {
       ContentType.json => _getInsFromJson(utf8.decode(bytes)),
       ContentType.html => HtmlResponseBody(utf8.decode(bytes)),
       ContentType.binary || ContentType.image => FileResponseBody(
           bytes,
-          fileName: _extractFileName(headers.headers),
+          fileName: _extractFileName(headers),
         ),
       ContentType.text => TextResponseBody(utf8.decode(bytes)),
       _ => null,
