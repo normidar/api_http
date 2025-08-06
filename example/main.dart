@@ -37,6 +37,33 @@ Future<void> getExample() async {
   print('');
 }
 
+/// Request with custom headers example
+Future<void> headerExample() async {
+  print('--- Request with Headers Example ---');
+
+  try {
+    final headers = {
+      'Authorization': 'Bearer your-token-here',
+      'User-Agent': 'API-HTTP-Library/1.0',
+    };
+
+    final request = GetRequestAcc(
+      url: 'https://jsonplaceholder.typicode.com/posts/1',
+      headers: headers,
+    );
+
+    final response = await Api.get(requestAcc: request);
+
+    print('Status Code: ${response.statusCode}');
+    print('Response: ${response.body}');
+    print('Curl Command: ${request.toCurlCommand()}');
+  } catch (e) {
+    print('Error: $e');
+  }
+
+  print('');
+}
+
 /// POST request with JSON body example
 Future<void> postExample() async {
   print('--- POST Request Example ---');
@@ -52,33 +79,6 @@ Future<void> postExample() async {
     );
 
     final response = await Api.post(requestAcc: request);
-
-    print('Status Code: ${response.statusCode}');
-    print('Response: ${response.body}');
-    print('Curl Command: ${request.toCurlCommand()}');
-  } catch (e) {
-    print('Error: $e');
-  }
-
-  print('');
-}
-
-/// Request with custom headers example
-Future<void> headerExample() async {
-  print('--- Request with Headers Example ---');
-
-  try {
-    final headers = RestHeaders.fromJson({
-      'Authorization': 'Bearer your-token-here',
-      'User-Agent': 'API-HTTP-Library/1.0',
-    });
-
-    final request = GetRequestAcc(
-      url: 'https://jsonplaceholder.typicode.com/posts/1',
-      headers: headers,
-    );
-
-    final response = await Api.get(requestAcc: request);
 
     print('Status Code: ${response.statusCode}');
     print('Response: ${response.body}');
