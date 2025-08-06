@@ -1,5 +1,6 @@
 export 'package:api_http/src/api.dart';
-export 'package:api_http/src/headers/headers.dart';
+export 'package:api_http/src/content_type/content_type.dart';
+export 'package:api_http/src/content_type/get_content_type.dart';
 export 'package:api_http/src/methods/delete_method.dart';
 export 'package:api_http/src/methods/get_method.dart';
 export 'package:api_http/src/methods/head_method.dart';

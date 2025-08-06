@@ -7,7 +7,7 @@ import 'package:meta/meta.dart';
 class PostRequestAcc extends RequestAcc {
   const PostRequestAcc({
     required this.url,
-    RestHeaders? headers,
+    Map<String, String>? headers,
     this.queryParameters,
     this.body,
   }) : _headers = headers;
@@ -17,7 +17,7 @@ class PostRequestAcc extends RequestAcc {
   ) =>
       PostRequestAcc(
         url: json['url'] as String,
-        headers: RestHeaders.fromJson(json['headers'] as Map<String, String>),
+        headers: json['headers'] as Map<String, String>?,
         queryParameters: json['queryParameters'] as Map<String, String>?,
         body: json['body'] != null
             ? RequestBody.fromJson(json['body'] as Map<String, dynamic>)
@@ -26,7 +26,7 @@ class PostRequestAcc extends RequestAcc {
 
   final String url;
 
-  final RestHeaders? _headers;
+  final Map<String, String>? _headers;
 
   final Map<String, String>? queryParameters;
 
@@ -35,7 +35,7 @@ class PostRequestAcc extends RequestAcc {
   @override
   int get hashCode => Object.hashAll([url, _headers, queryParameters, body]);
 
-  RestHeaders? get headers {
+  Map<String, String>? get headers {
     if (_headers == null) return null;
     return _headers;
   }
@@ -50,7 +50,7 @@ class PostRequestAcc extends RequestAcc {
           other.body == body);
 
   PostRequestAcc copyWith({
-    RestHeaders? headers,
+    Map<String, String>? headers,
     Map<String, String>? queryParameters,
     RequestBody? body,
   }) =>
@@ -76,7 +76,7 @@ class PostRequestAcc extends RequestAcc {
     // Add custom headers
     if (headers != null) {
       headerStrings.addAll(
-        headers!.headers.entries.map((e) => '-H "${e.key}: ${e.value}"'),
+        headers!.entries.map((e) => '-H "${e.key}: ${e.value}"'),
       );
     }
 
@@ -133,7 +133,7 @@ class PostRequestAcc extends RequestAcc {
   @override
   Map<String, dynamic> toJson() => {
         'url': url,
-        'headers': _headers?.toJson(),
+        'headers': _headers,
         'queryParameters': queryParameters,
         'body': body?.toJson(),
       };

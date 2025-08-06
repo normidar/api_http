@@ -125,13 +125,13 @@ final response = await Api.get(requestAcc: request);
 
 if (response.body is FileResponseBody) {
   final fileBody = response.body as FileResponseBody;
-  
+
   // Save to specific directory
   final path = await fileBody.saveToDirectory(
     '/downloads',
     prefix: 'user_avatar_',
   );
-  
+
   // Or save to specific path
   await fileBody.saveToFile('/downloads/avatar.jpg');
 }
