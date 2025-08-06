@@ -5,26 +5,26 @@ import 'package:meta/meta.dart';
 class GetRequestAcc extends RequestAcc {
   const GetRequestAcc({
     required this.url,
-    RestHeaders? headers,
+    Map<String, String>? headers,
     this.queryParameters,
   }) : _headers = headers;
 
   factory GetRequestAcc.fromJson(Map<String, dynamic> json) => GetRequestAcc(
         url: json['url'] as String,
-        headers: RestHeaders.fromJson(json['headers'] as Map<String, String>),
+        headers: json['headers'] as Map<String, String>?,
         queryParameters: json['queryParameters'] as Map<String, String>?,
       );
 
   final String url;
 
-  final RestHeaders? _headers;
+  final Map<String, String>? _headers;
 
   final Map<String, String>? queryParameters;
 
   @override
   int get hashCode => Object.hashAll([url, headers, queryParameters]);
 
-  RestHeaders? get headers {
+  Map<String, String>? get headers {
     if (_headers == null) return null;
     return _headers;
   }
@@ -38,7 +38,7 @@ class GetRequestAcc extends RequestAcc {
           (other.queryParameters ?? {}) == (queryParameters ?? {}));
 
   GetRequestAcc copyWith({
-    RestHeaders? headers,
+    Map<String, String>? headers,
     Map<String, String>? queryParameters,
   }) =>
       GetRequestAcc(
@@ -62,7 +62,7 @@ class GetRequestAcc extends RequestAcc {
     // Add custom headers
     if (headers != null) {
       headerStrings.addAll(
-        headers!.headers.entries.map((e) => '-H "${e.key}: ${e.value}"'),
+        headers!.entries.map((e) => '-H "${e.key}: ${e.value}"'),
       );
     }
 
@@ -78,7 +78,7 @@ class GetRequestAcc extends RequestAcc {
   @override
   Map<String, dynamic> toJson() => {
         'url': url,
-        'headers': headers?.toJson(),
+        'headers': headers,
         'queryParameters': queryParameters,
       };
 

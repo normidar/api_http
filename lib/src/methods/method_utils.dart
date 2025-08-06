@@ -19,7 +19,7 @@ class MethodUtils {
     }
     final uri = Uri.parse(url);
 
-    final headers = requestAcc.headers?.toJson() ?? {};
+    final headers = requestAcc.headers ?? {};
 
     final request = http.Request('GET', uri);
 
@@ -40,7 +40,7 @@ class MethodUtils {
     }
     final uri = Uri.parse(url);
 
-    final headers = requestAcc.headers?.toJson() ?? {};
+    final headers = requestAcc.headers ?? {};
 
     final request = http.Request('HEAD', uri);
 
@@ -66,7 +66,7 @@ class MethodUtils {
     final uri = Uri.parse(url);
 
     final headers = {
-      ...(requestAcc.headers?.toJson() ?? {}),
+      ...(requestAcc.headers ?? {}),
       ...(requestBody?.styleHeaders ?? {}),
     };
 

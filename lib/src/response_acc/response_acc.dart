@@ -18,7 +18,7 @@ class ResponseAcc {
   /// ListJsonResponseBody or FileResponseBody or null.
   final ResponseBody? body;
 
-  final RestHeaders headers;
+  final Map<String, String> headers;
 
   @override
   String toString() {
@@ -30,7 +30,7 @@ class ResponseAcc {
     http.StreamedResponse response,
   ) async {
     final bytes = await response.stream.toBytes();
-    final headers = RestHeaders.fromJson(response.headers);
+    final headers = response.headers;
     final bodyInstance = switch (headers.contentType) {
       ContentType.json => _getInsFromJson(utf8.decode(bytes)),
       ContentType.html => HtmlResponseBody(utf8.decode(bytes)),
@@ -45,7 +45,7 @@ class ResponseAcc {
     return ResponseAcc(
       statusCode: response.statusCode.toString(),
       body: bodyInstance,
-      headers: RestHeaders.fromJson(response.headers),
+      headers: response.headers,
     );
   }
 
